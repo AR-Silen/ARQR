@@ -535,7 +535,7 @@ const pub = $('pub');
 function defaultRepo() {
   const m = location.hostname.match(/^([^.]+)\.github\.io$/);
   const repo = location.pathname.split('/')[1];
-  return m && repo ? `${m[1]}/${repo}` : 'SilenKarl/ARQR';
+  return m && repo ? `${m[1]}/${repo}` : 'AR-Silen/ARQR';
 }
 function readPubPrefs() { try { return JSON.parse(localStorage.getItem(PUB_KEY)) || {}; } catch { return {}; } }
 function readToken() { try { return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY) || ''; } catch { return ''; } }

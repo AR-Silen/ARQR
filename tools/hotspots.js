@@ -508,7 +508,7 @@ const pub = $('pub');
 function defaultRepo() {
   const m = location.hostname.match(/^([^.]+)\.github\.io$/);
   const repo = location.pathname.split('/')[1];
-  return m && repo ? `${m[1]}/${repo}` : 'SilenKarl/ARQR';
+  return m && repo ? `${m[1]}/${repo}` : 'AR-Silen/ARQR';
 }
 
 // Where an uploaded PDF ends up being servable, regardless of where this tool itself is being run from
