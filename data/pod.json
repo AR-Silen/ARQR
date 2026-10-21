@@ -7,52 +7,124 @@
   },
   "hotspots": [
     {
-      "id": "new-handle",
-      "title": "New handle",
-      "text": "Täiesti unikaalne käepide!",
+      "id": "ergonomic-handle",
+      "title": "ERGONOMIC HANDLE",
+      "text": "Custom-designed ergonomic handle, made exclusively for Silen. Magnetic door closure.",
       "url": "https://99cubes.de/wp-content/uploads/2026/03/99cubes-silen_space_gen2_door_handle-detailansicht.jpg",
-      "x": 0.371,
-      "y": 0.487
+      "x": 0.363,
+      "y": 0.439
     },
     {
-      "id": "new-lights",
-      "title": "New lights",
-      "text": "Uus ja äge laelamp!",
+      "id": "lighting",
+      "title": "LIGHTING",
+      "text": "Custom-designed lighting with preset modes and ambient lighting.",
       "url": "https://99cubes.de/wp-content/uploads/2026/03/99cubes-silen_space_gen2_ledventilation-detailansicht.jpg",
-      "x": 0.745,
-      "y": 0.11
+      "x": 0.725,
+      "y": 0.082
     },
     {
-      "id": "new-roof",
-      "title": "New roof",
-      "text": "Leviteeriv ja funktsionaalne lagi.",
+      "id": "occupancy-light",
+      "title": "OCCUPANCY LIGHT",
+      "text": "Occupancy light integrated into the signature floating roof.",
       "url": "https://99cubes.de/wp-content/uploads/2026/03/99cubes-silen_space_gen2_floating_roof-detailansicht.jpg",
       "x": 0.507,
       "y": 0
     },
     {
-      "id": "control-panel",
-      "title": "Control panel",
-      "text": "Meeletute võimalustega kontrollpaneel",
+      "id": "control",
+      "title": "CONTROL",
+      "text": "Control panel for personalised lighting and airflow.",
       "url": "https://99cubes.de/wp-content/uploads/2026/03/99cubes-silen_space_gen2_control_panel-detailansicht.jpg",
-      "x": 0.162,
-      "y": 0.238
+      "x": 0.237,
+      "y": 0.557
     },
     {
-      "id": "updated-furniture",
-      "title": "Updated furniture",
-      "text": "Erimööbel suhestub tootega hästi.",
+      "id": "movable",
+      "title": "MOVABLE",
+      "text": "Patented hidden caster system",
       "url": "https://99cubes.de/wp-content/uploads/2026/03/99cubes-silen_space_gen2_sofa-detailansicht.jpg",
-      "x": 0.831,
-      "y": 0.828
+      "x": 0.769,
+      "y": 0.932
     },
     {
-      "id": "new-feature",
-      "title": "New feature",
-      "text": "",
+      "id": "sustainable",
+      "title": "SUSTAINABLE",
+      "text": "Optimized structure and selected recyclable materials for greater sustainability.",
       "url": "",
-      "x": 0.241,
-      "y": 0.807
+      "x": 0.498,
+      "y": 0.679
+    },
+    {
+      "id": "ventilation",
+      "title": "VENTILATION",
+      "text": "High-performance ventilation with adjustable airflow and Boost mode for rapid air refresh.",
+      "url": "",
+      "x": 0.277,
+      "y": 0.075
+    },
+    {
+      "id": "design",
+      "title": "DESIGN",
+      "text": "Visually light and sophisticated design.",
+      "url": "",
+      "x": 0.047,
+      "y": 0.213
+    },
+    {
+      "id": "structure",
+      "title": "STRUCTURE",
+      "text": "Lightweight and durable structural design based on recycled aluminium",
+      "url": "",
+      "x": 0.974,
+      "y": 0.233
+    },
+    {
+      "id": "door",
+      "title": "DOOR",
+      "text": "Wide magnetic door for easy access.",
+      "url": "",
+      "x": 0.672,
+      "y": 0.442
+    },
+    {
+      "id": "lightness",
+      "title": "LIGHTNESS",
+      "text": "Visually lighter walls, uncompromised Class A sound reduction.",
+      "url": "",
+      "x": 0.022,
+      "y": 0.619
+    },
+    {
+      "id": "swappable-panels",
+      "title": "SWAPPABLE PANELS",
+      "text": "Easily swappable interior and exterior panels for lasting freshness.",
+      "url": "",
+      "x": 0.962,
+      "y": 0.522
+    },
+    {
+      "id": "furniture",
+      "title": "FURNITURE",
+      "text": "Custom-designed ergonomic furniture.",
+      "url": "",
+      "x": 0.767,
+      "y": 0.681
+    },
+    {
+      "id": "weight",
+      "title": "WEIGHT",
+      "text": "Reduced weight for easier handling and a lower overall footprint.",
+      "url": "",
+      "x": 0.016,
+      "y": 0.884
+    },
+    {
+      "id": "retrofittable",
+      "title": "RETROFITTABLE",
+      "text": "Structural platform to support upgrades and adding accessories over time.",
+      "url": "",
+      "x": 0.33,
+      "y": 0.942
     }
   ]
 }
