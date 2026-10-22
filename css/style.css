@@ -290,7 +290,7 @@ button, a { font: inherit; }
 
 .cam-controls {
   position: absolute;
-  top: max(var(--gutter), env(safe-area-inset-top));
+  bottom: max(var(--gutter), env(safe-area-inset-bottom));
   right: var(--gutter);
   z-index: 5;
 }
@@ -305,9 +305,11 @@ button, a { font: inherit; }
   cursor: pointer;
 }
 #camBtn[hidden] { display: none; }
+/* the feature card covers the bottom of the screen; the camera button comes back when it closes */
+#stage:has(#sheet:not([hidden])) .cam-controls { display: none; }
 #camPanel {
   position: absolute;
-  top: 52px; right: 0;
+  bottom: 52px; right: 0;
   min-width: 200px;
   max-width: calc(100vw - 2 * var(--gutter) - 8px);
   padding: 10px;

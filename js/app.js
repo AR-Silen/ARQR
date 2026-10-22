@@ -10,23 +10,23 @@ import { CameraControl } from './camera.js';
 // the same way but draws no outline or corner handles, and does not ask people to tap corners.
 const USER_MODE = document.documentElement.dataset.mode === 'user';
 const TXT = USER_MODE ? {
-  wait: 'Getting ready…',
-  search: 'Point the camera at the pod and step back until you can see its whole front.',
-  partial: 'Step back a little so the whole front of the pod is in view.',
+  wait: 'Getting ready to look for the pod…',
+  search: 'Looking for the pod… Point the camera at it and step back until you can see its whole front.',
+  partial: 'Pod spotted. Step back a little so its whole front is in view.',
   found: 'Tap a numbered dot for details.',
   foundAgain: '',
-  lost: () => 'Point the camera back at the pod and step back until you can see its whole front.',
-  lostTrack: 'Point the camera back at the pod.',
+  lost: () => 'Looking for the pod again… Point the camera at it and step back until you can see its whole front.',
+  lostTrack: 'Looking for the pod again… Point the camera back at it.',
   noDetector: 'The pod finder could not start on this device.',
 } : {
-  wait: null,
-  search: 'Looking for the pod. Step back until you can see its whole front, or tap its corners.',
-  partial: 'I can see the pod but not all of its front. Step back a little, or tap its corners.',
-  found: 'Found the pod. Tap a numbered dot for details. Drag a corner to fine-tune.',
+  wait: 'Loading the pod finder…',
+  search: 'Looking for the pod. Step back until you can see its whole front.',
+  partial: 'I can see the pod but not all of its front. Step back a little.',
+  found: 'Found the pod. Tap a numbered dot for details.',
   foundAgain: 'Found the pod again.',
-  lost: (why) => why + ' Point the camera at it and step back until the whole front is in view, or tap its corners.',
+  lost: (why) => why + ' Point the camera at it and step back until the whole front is in view.',
   lostTrack: 'Lost track of the pod. Point the camera back at it.',
-  noDetector: null,
+  noDetector: 'The pod finder could not start. Tap the four corners of the pod to place the outline by hand.',
 };
 
 const $ = (id) => document.getElementById(id);
@@ -222,7 +222,8 @@ function updatePlacingHint() {
   const n = placing.length;
   if (n === 0 && detector) {
     setHint(TXT.search);
-  } else if (USER_MODE) {
+  } else if (USER_MODE || n === 0) {
+    // the pod is mapped automatically; corner prompts only appear once an admin has started tapping by hand
     setHint(TXT.wait);
   } else {
     setHint(`Tap the pod's ${CORNER_NAMES[n]} corner (${n + 1} of 4)`);
@@ -246,7 +247,7 @@ $('stage').addEventListener('pointerdown', (e) => {
       placing = [];
       manual = true;
       lostSince = 0;
-      setHint('Tap a numbered dot for details. Drag a corner to fine-tune.', 7000);
+      setHint('Tap a numbered dot for details.', 7000);
     } else {
       updatePlacingHint();
     }
