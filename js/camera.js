@@ -17,7 +17,7 @@ export class CameraControl {
   async open(deviceId = null) {
     if (!navigator.mediaDevices?.getUserMedia) throw new Error('This browser cannot open the camera. Try Safari or Chrome over https.');
     const constraints = deviceId
-      ? { video: { deviceId: { exact: deviceId } }, audio: false }
+      ? { video: { deviceId: { exact: deviceId }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false }
       : { video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     this._stop();
@@ -52,6 +52,15 @@ export class CameraControl {
     return { min: c.zoom.min, max: c.zoom.max, step: c.zoom.step || (c.zoom.max - c.zoom.min) / 20 || 0.1, value: cur ?? c.zoom.min };
   }
 
+  // Zooms out as far as the lens goes when that is wider than normal (min below 1). Many Android phones only
+  // offer their ultra-wide lens this way, under the same "back camera" name. Returns whether it zoomed out.
+  async zoomToWidest() {
+    const z = this.zoomRange();
+    if (!z || z.min >= 1 || z.value <= z.min) return false;
+    await this.setZoom(z.min);
+    return true;
+  }
+
   async setZoom(value) {
     if (!this.track) return;
     await this.track.applyConstraints({ advanced: [{ zoom: value }] }).catch(() => {});
@@ -61,11 +70,13 @@ export class CameraControl {
   // once permission is granted).
   labelFor(i) { return this.devices[i]?.label || `Camera ${i + 1}`; }
 
-  // The device whose label most clearly says "wide" lens, if the phone has one and it isn't already open;
-  // null when there is nothing to switch to, in which case the normal back camera already opened is used.
+  // The back-facing device whose label most clearly says "wide" lens, if the phone has one and it isn't already
+  // open; null when there is nothing to switch to, in which case the normal back camera already opened is used.
+  // Front cameras are skipped (an iPad's front camera is also called "Ultra Wide").
   preferredWide() {
     const score = (label) => {
       const l = (label || '').toLowerCase();
+      if (/front|user|facetime|selfie/.test(l)) return 0;
       if (/ultra[\s-]*wide/.test(l)) return 2;    // e.g. iPhone's "Back Ultra Wide Camera"
       if (/wide[\s-]*angle|\bwide\b/.test(l)) return 1;
       return 0;

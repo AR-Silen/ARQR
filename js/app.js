@@ -1,9 +1,9 @@
-import { squareToQuad, applyH, applyScaledH, isPlausibleQuad, quadInView } from './geometry.js';
-import { loadOpenCV, FlowTracker } from './tracker.js';
-import { loadDetector } from './detector.js';
-import { fitRectangle } from './pose.js';
-import { alignToMask } from './align.js';
-import { CameraControl } from './camera.js';
+import { squareToQuad, applyH, applyScaledH, isPlausibleQuad, quadInView } from './geometry.js?v=2026102202';
+import { loadOpenCV, FlowTracker } from './tracker.js?v=2026102202';
+import { loadDetector } from './detector.js?v=2026102202';
+import { fitRectangle } from './pose.js?v=2026102202';
+import { alignToMask } from './align.js?v=2026102202';
+import { CameraControl } from './camera.js?v=2026102202';
 
 // Two pages share this code. The admin page (admin499/index.html) draws the outline the app has found, so an
 // administrator can check what it does. The user page (index.html, data-mode="user") tracks exactly
@@ -136,6 +136,7 @@ async function openVideoSource() {
   await camera.open();                       // the phone's default back camera, and its list of cameras
   const wide = camera.preferredWide();
   if (wide) await camera.open(wide).catch(() => {});   // prefer a wide lens when the phone has one; keep the default otherwise
+  await camera.zoomToWidest();                // phones (mostly Android) that reach the ultra-wide lens through zoom
   setUpCameraControls();
 }
 
