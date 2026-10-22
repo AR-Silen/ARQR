@@ -21,7 +21,7 @@ function loadScript(src) {
 }
 
 // Resolves with a detector, or rejects if the runtime or model cannot load (the app then stays manual).
-// The model path is resolved against this file, so it works from any page (index.html, user/index.html, tools/).
+// The model path is resolved against this file, so it works from any page (index.html, admin499/, tools/).
 export async function loadDetector(cv, modelUrl = new URL('../models/pod_front.onnx', import.meta.url).href) {
   if (!window.ort) await loadScript(ORT_BASE + 'ort.min.js');
   const ort = window.ort;

@@ -64,7 +64,7 @@ cleared and the app looks for the pod again.
 
 An experiment in giving each dot a real depth, so it stops sliding against its real feature (a light, the
 table, a sofa) as the camera moves sideways &mdash; the parallax a flat 2D dot cannot account for. Kept
-completely separate from the live 2D system on purpose: **the live app, `index.html`, `user/index.html`,
+completely separate from the live 2D system on purpose: **the live app, `index.html`, `admin499/index.html`,
 `js/app.js` and `data/pod.json` are untouched by any of this**, and this system reads and writes only its own
 files. It is not linked from the public site or the admin page; reaching it means typing the URL.
 
@@ -95,13 +95,14 @@ the manufacturer's CAD drawing, or a good estimate &mdash; typed in, not derived
 
 | Page | URL | Shows the outline? | For |
 |---|---|---|---|
-| Admin view | `/` (`index.html`) | yes, with corner handles | checking what the app does and where it thinks the pod is |
-| User view | `/user/` | no, only the numbered dots | the people you give the QR code to |
+| User view | `/` (`index.html`) | no, only the numbered dots | the people you give the QR code to |
+| Admin view | `/admin499/` | yes, with corner handles | checking what the app does and where it thinks the pod is |
 
 They run the same code and the same model. The user page tracks the pod exactly as the admin page does but
 draws nothing over it, does not ask anyone to tap corners, and uses plain hints ("Step back a little so the
 whole front of the pod is in view."). If the pod finder cannot start on a device, it says so. Print the QR
-code for the `/user/` address.
+code for the site's root address. The old `/user/` address redirects there, so QR codes already printed
+for it keep working.
 
 ## Status
 
@@ -260,7 +261,7 @@ then open http://localhost:8765/. To test on a PC without a camera, put a video 
 
 1. Create a GitHub repository and push this folder.
 2. Settings, Pages, deploy from branch `main`, folder `/ (root)`.
-3. The admin page is served at `https://<user>.github.io/<repo>/` and the user page at `https://<user>.github.io/<repo>/user/`. Both are https, so the camera prompt works.
-4. Make a QR code for the `/user/` URL and print it next to the pod.
+3. The user page is served at `https://<user>.github.io/<repo>/` and the admin page at `https://<user>.github.io/<repo>/admin499/`. Both are https, so the camera prompt works.
+4. Make a QR code for the root URL and print it next to the pod.
 
 `dev/`, `dataset/` and `video/` are git-ignored, so raw showroom footage is not published.

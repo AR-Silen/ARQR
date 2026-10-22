@@ -5,8 +5,8 @@ import { fitRectangle } from './pose.js';
 import { alignToMask } from './align.js';
 import { CameraControl } from './camera.js';
 
-// Two pages share this code. The admin page (index.html) draws the outline the app has found, so an
-// administrator can check what it does. The user page (user/index.html, data-mode="user") tracks exactly
+// Two pages share this code. The admin page (admin499/index.html) draws the outline the app has found, so an
+// administrator can check what it does. The user page (index.html, data-mode="user") tracks exactly
 // the same way but draws no outline or corner handles, and does not ask people to tap corners.
 const USER_MODE = document.documentElement.dataset.mode === 'user';
 const TXT = USER_MODE ? {
