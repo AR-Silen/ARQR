@@ -1,9 +1,9 @@
-import { squareToQuad, applyH, applyScaledH, isPlausibleQuad, quadInView } from './geometry.js?v=2026102202';
-import { loadOpenCV, FlowTracker } from './tracker.js?v=2026102202';
-import { loadDetector } from './detector.js?v=2026102202';
-import { fitRectangle } from './pose.js?v=2026102202';
-import { alignToMask } from './align.js?v=2026102202';
-import { CameraControl } from './camera.js?v=2026102202';
+import { squareToQuad, applyH, applyScaledH, isPlausibleQuad, quadInView } from './geometry.js?v=2026102302';
+import { loadOpenCV, FlowTracker } from './tracker.js?v=2026102302';
+import { loadDetector } from './detector.js?v=2026102302';
+import { fitRectangle } from './pose.js?v=2026102302';
+import { alignToMask } from './align.js?v=2026102302';
+import { CameraControl } from './camera.js?v=2026102302';
 
 // Two pages share this code. The admin page (admin499/index.html) draws the outline the app has found, so an
 // administrator can check what it does. The user page (index.html, data-mode="user") tracks exactly
@@ -84,8 +84,6 @@ let manual = false;       // the outline came from the user's taps or drags, so 
 let holdHintUntil = 0;    // keep a status message on screen until then
 let hotspotEls = [];
 let activeEl = null;
-let activeHotspot = null;  // the feature whose card is open
-let viewerOpen = false;   // the in-app page viewer is showing
 let hintTimer = 0;
 if (debug) window.podDebug = { get quad() { return quad; }, set quad(q) { quad = q; manual = false; lostSince = 0; offSince = 0; }, get tracker() { return tracker; }, get front() { return front; }, set detector(d) { detector = d; }, get lost() { return lostSince; }, get camera() { return camera; } };
 
@@ -238,7 +236,7 @@ function setHint(text, ms = 0) {
 }
 
 $('stage').addEventListener('pointerdown', (e) => {
-  if (e.target.closest('button, aside, a, #viewer')) return;
+  if (e.target.closest('button, aside, a')) return;
   if (USER_MODE) { closeSheet(); return; }   // nothing to place or drag: the outline is not shown
   const p = toVideo(e.clientX, e.clientY);
   if (!quad) {
@@ -408,13 +406,9 @@ function buildHotspots() {
 function openSheet(h, el) {
   if (activeEl) activeEl.classList.remove('active');
   activeEl = el;
-  activeHotspot = h;
   el.classList.add('active');
   $('sheetTitle').textContent = h.title;
   $('sheetText').textContent = h.text || '';
-  const link = $('sheetLink');
-  link.hidden = !h.url;
-  if (h.url) link.href = h.url;
   sheet.hidden = false;
 }
 
@@ -422,71 +416,6 @@ function closeSheet() {
   sheet.hidden = true;
   if (activeEl) activeEl.classList.remove('active');
   activeEl = null;
-}
-
-// ---------- in-app page viewer ----------
-
-// "Open feature page" shows the page over the camera view instead of leaving the app; Back to camera, the Back
-// button on the phone, or Escape returns to it. The camera and tracking keep running underneath. Some sites
-// refuse to be shown inside another page (silen.com does), so the bar always has "Open in browser", and a
-// feature can set "embed": false in data/pod.json to open in a new tab straight away.
-$('sheetLink').addEventListener('click', (e) => {
-  const h = activeHotspot;
-  if (!h || !h.url) return;
-  e.preventDefault();
-  if (h.embed === false) { window.open(h.url, '_blank', 'noopener'); return; }
-  openViewer(h);
-});
-$('viewerClose').addEventListener('click', closeViewer);
-window.addEventListener('popstate', () => { if (viewerOpen && !history.state?.viewer) hideViewer(); });
-window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && viewerOpen) closeViewer(); });
-
-// Closing pops the history entry openViewer added. If the person browsed inside the page, that Back only
-// steps the page's own history, so the viewer is hidden regardless a moment later.
-function closeViewer() {
-  if (!viewerOpen) return;
-  if (history.state?.viewer) history.back();
-  setTimeout(() => { if (viewerOpen) hideViewer(); }, 150);
-}
-
-const IS_PHOTO = /\.(jpe?g|png|webp|gif|avif)(\?.*)?$/i;
-
-function openViewer(h) {
-  $('viewerTitle').textContent = h.title || '';
-  $('viewerOpen').href = h.url;
-  $('viewerLoading').textContent = 'Loading\u2026';
-  $('viewerLoading').hidden = false;
-  const f = $('viewerFrame'), img = $('viewerImg');
-  const photo = IS_PHOTO.test(h.url);
-  f.hidden = photo;
-  img.hidden = !photo;
-  $('viewer').hidden = false;
-  viewerOpen = true;
-  history.pushState({ viewer: true }, '');       // so the phone's Back button closes the viewer, not the app
-  if (photo) {
-    img.alt = h.title || '';
-    img.onload = () => { $('viewerLoading').hidden = true; };
-    img.onerror = () => { $('viewerLoading').textContent = 'The picture could not be loaded. Try "Open in browser".'; };
-    img.src = h.url;
-  } else {
-    f.onload = () => { $('viewerLoading').hidden = true; };
-    f.contentWindow.location.replace(h.url);     // replace, not src: setting src would add a history entry of its own
-  }
-  $('viewerClose').focus();
-}
-
-function hideViewer() {
-  viewerOpen = false;
-  $('viewer').hidden = true;
-  const f = $('viewerFrame');
-  f.onload = null;
-  f.contentWindow.location.replace('about:blank'); // stops the page loading, playing sound or running
-  const img = $('viewerImg');
-  img.onload = img.onerror = null;
-  img.removeAttribute('src');
-  img.hidden = true;
-  f.hidden = false;
-  if (!$('sheet').hidden) $('sheetLink').focus();
 }
 
 // ---------- render loop ----------
