@@ -72,7 +72,7 @@ button, a { font: inherit; }
   letter-spacing: -0.01em;
 }
 #start .lead { margin: 0; max-width: 34ch; font-size: 1.1rem; color: var(--ink); }
-#start .brand { display: block; width: auto; height: 26px; margin-bottom: clamp(16px, 5vw, 32px); color: var(--ink); }
+#start .brand { display: block; width: auto; height: clamp(40px, 12vw, 56px); margin-bottom: clamp(20px, 6vw, 36px); color: #000; }
 #start .intro { display: flex; flex-direction: column; gap: 14px; margin-bottom: 8px; }
 #start .admin-note {
   margin: 0;
